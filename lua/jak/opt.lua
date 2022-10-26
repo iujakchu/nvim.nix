@@ -31,7 +31,7 @@ local opt = {
     shell = "zsh",
     whichwrap = "h,l",
     cursorline = false,
-    cmdheight = 0,
+    cmdheight = 1,
     virtualedit = "block",
 }
 for key, value in pairs(opt) do
