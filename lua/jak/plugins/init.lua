@@ -1,13 +1,6 @@
 local packer = require "packer"
 local plugins = {
     { "wbthomason/packer.nvim" },
-    signs = {
-        add = { hl = "DiffAdd", text = "📝", numhl = "GitSignsAddNr" },
-        change = { hl = "DiffChange", text = "👻", numhl = "GitSignsChangeNr" },
-        delete = { hl = "DiffDelete", text = "😈", numhl = "GitSignsDeleteNr" },
-        topdelete = { hl = "DiffDelete", text = "😈", numhl = "GitSignsDeleteNr" },
-        changedelete = { hl = "DiffChangeDelete", text = "😈", numhl = "GitSignsChangeNr" },
-    },
     { "tpope/vim-surround" },
     { "tpope/vim-eunuch" },
     { "lewis6991/impatient.nvim" },
@@ -123,7 +116,6 @@ local plugins = {
             "nvim-lua/plenary.nvim",
             "benfowler/telescope-luasnip.nvim",
             "mrjones2014/tldr.nvim",
-            "xiyaowong/telescope-emoji.nvim",
             "AckslD/nvim-neoclip.lua",
             "nvim-telescope/telescope-ui-select.nvim",
             "chip/telescope-software-licenses.nvim",
@@ -149,7 +141,6 @@ local plugins = {
             end)
             vim.keymap.set("n", "<leader><leader>", ":Telescope help_tags<CR>")
             vim.keymap.set("n", "<leader>n", ":Telescope neoclip<CR>")
-            vim.keymap.set("n", "<leader>j", ":Telescope emoji<CR>")
             vim.keymap.set("n", "<leader>,", ":Telescope file_browser<CR>")
             vim.keymap.set("n", "<leader>fp", ":Telescope projects<CR>")
             vim.keymap.set("n", "<leader>fl", ":Telescope software-licenses find<CR>")
@@ -322,6 +313,15 @@ local plugins = {
     { "gcmt/wildfire.vim" },
     -- { "stevearc/dressing.nvim" },
     {
+        "ziontee113/icon-picker.nvim",
+        config = function()
+            require("icon-picker").setup {
+                disable_legacy_commands = true,
+            }
+            vim.keymap.set("n", "<leader>j", ":IconPickerInsert<CR>")
+        end,
+    },
+    {
         "klen/nvim-test",
         config = function()
             require("nvim-test").setup()
@@ -395,7 +395,6 @@ local plugins = {
     },
     {
         "anuvyklack/pretty-fold.nvim",
-        requires = "anuvyklack/nvim-keymap-amend",
         config = function()
             require("pretty-fold").setup()
         end,

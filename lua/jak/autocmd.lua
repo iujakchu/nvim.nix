@@ -7,12 +7,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank { higroup = "WildMenu", timeout = 400 }
     end,
 })
--- Highlight Yanked Text
---[[ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-    callback = function()
-        vim.highlight.on_yank { higroup = "CursorLineFold", timeout = 400 }
-    end,
-}) ]]
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "alpha",
     callback = function()
