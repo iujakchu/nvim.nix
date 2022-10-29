@@ -2,7 +2,7 @@ local opt = {
     clipboard = "unnamed,unnamedplus",
     ruler = false,
     showcmd = false,
-    mouse = "n",
+    mouse = "nv",
     wildignorecase = true,
     swapfile = false,
     completeopt = "menuone,noselect",
@@ -27,12 +27,21 @@ local opt = {
     showmode = false,
     undofile = true,
     tabstop = 4,
+    --TODO: conceal some text
+    conceallevel = 2,
     -- waiting for treesitter support of nushell
     shell = "zsh",
     whichwrap = "h,l",
     cursorline = false,
     cmdheight = 1,
     virtualedit = "block",
+    timeoutlen = 300,
+    foldlevel = 99,
+    foldmethod = "expr",
+    foldexpr = "nvim_treesitter#foldexpr()",
+    foldcolumn = "1",
+    linebreak = true,
+    showbreak = "  ﬌",
 }
 for key, value in pairs(opt) do
     vim.o[key] = value
@@ -82,10 +91,3 @@ vim.opt.fillchars = {
     foldsep = " ",
     foldclose = "",
 }
-vim.opt.timeoutlen = 300
-vim.opt.foldlevel = 99
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldcolumn = "1"
-vim.opt.linebreak = true
-vim.opt.showbreak = "  ﬌"
