@@ -38,3 +38,8 @@ vim.keymap.set("n", "<leader>ob", function()
     local btm = Terminal:new { cmd = "btm", hidden = true }
     btm:toggle()
 end)
+
+vim.keymap.set("n", "<leader>oh", function()
+    local btm = Terminal:new { cmd = "htop", hidden = true }
+    btm:toggle()
+end)

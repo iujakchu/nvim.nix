@@ -82,15 +82,6 @@ ins_left {
     function()
         return "▊"
     end,
-    color = { fg = colors.blue }, -- Sets highlighting of component
-    padding = { left = 0, right = 1 }, -- We don't need space before this
-}
-
-ins_left {
-    -- mode component
-    function()
-        return "👾"
-    end,
     color = function()
         -- auto change color according to neovims mode
         local mode_color = {
@@ -117,6 +108,14 @@ ins_left {
         }
         return { fg = mode_color[vim.fn.mode()] }
     end,
+    padding = { left = 0, right = 1 }, -- We don't need space before this
+}
+
+ins_left {
+    -- mode component
+    function()
+        return "👾"
+    end,
     padding = { right = 1 },
 }
 
@@ -124,6 +123,7 @@ ins_left {
     -- filesize component
     "filesize",
     cond = conditions.buffer_not_empty,
+    color = { fg = colors.green, gui = "bold" },
 }
 
 ins_left {
@@ -134,7 +134,7 @@ ins_left {
 
 ins_left { "location" }
 
-ins_left { "progress", color = { fg = colors.fg, gui = "bold" } }
+ins_left { "progress", color = { fg = "#ffffff", gui = "bold" } }
 
 ins_left {
     "diagnostics",
@@ -173,9 +173,9 @@ ins_left {
         return msg
     end,
     icon = " LSP:",
-    color = { fg = "#ffffff", gui = "bold" },
+    color = { fg = "#FFC4CE", gui = "bold" },
 }
-ins_left { "lsp_progress" }
+ins_left { "lsp_progress", color = { fg = "#9D399D", gui = "bold" } }
 
 -- Add components to right sections
 ins_right {
@@ -189,7 +189,7 @@ ins_right {
     "fileformat",
     fmt = string.upper,
     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-    color = { fg = colors.green, gui = "bold" },
+    color = { fg = colors.cyan, gui = "bold" },
 }
 
 ins_right {
