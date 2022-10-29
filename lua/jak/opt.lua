@@ -86,8 +86,6 @@ vim.opt.fillchars = {
     vertleft = "╣",
     vertright = "╠",
     verthoriz = "╬",
-    fold = " ",
     foldopen = "",
-    foldsep = " ",
     foldclose = "",
 }
