@@ -33,12 +33,11 @@ local plugins = {
         requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope", "max397574/neorg-kanban" },
     },
     {
-        "glepnir/galaxyline.nvim",
-        branch = "main",
+        "nvim-lualine/lualine.nvim",
         config = function()
             require "jak.setup.statusline"
         end,
-        requires = { "kyazdani42/nvim-web-devicons" },
+        requires = { "kyazdani42/nvim-web-devicons", "arkav/lualine-lsp-progress" },
     },
     {
         "CRAG666/code_runner.nvim",
