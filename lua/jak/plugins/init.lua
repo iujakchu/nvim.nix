@@ -1,6 +1,13 @@
 local packer = require "packer"
 local plugins = {
     { "wbthomason/packer.nvim" },
+    signs = {
+        add = { hl = "DiffAdd", text = "📝", numhl = "GitSignsAddNr" },
+        change = { hl = "DiffChange", text = "👻", numhl = "GitSignsChangeNr" },
+        delete = { hl = "DiffDelete", text = "😈", numhl = "GitSignsDeleteNr" },
+        topdelete = { hl = "DiffDelete", text = "😈", numhl = "GitSignsDeleteNr" },
+        changedelete = { hl = "DiffChangeDelete", text = "😈", numhl = "GitSignsChangeNr" },
+    },
     { "tpope/vim-surround" },
     { "tpope/vim-eunuch" },
     { "lewis6991/impatient.nvim" },
@@ -28,7 +35,7 @@ local plugins = {
                     ["external.kanban"] = {},
                 },
             }
-            vim.keymap.set("n", "\\\\", ":NeorgStart<CR>")
+            vim.keymap.set("n", "\\\\", ":Neorg workspace ")
         end,
         requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope", "max397574/neorg-kanban" },
     },
@@ -235,15 +242,7 @@ local plugins = {
         "lewis6991/gitsigns.nvim",
         requires = { "nvim-lua/plenary.nvim" },
         config = function()
-            require("gitsigns").setup {
-                signs = {
-                    add = { hl = "DiffAdd", text = "+", numhl = "GitSignsAddNr" },
-                    change = { hl = "DiffChange", text = "👻", numhl = "GitSignsChangeNr" },
-                    delete = { hl = "DiffDelete", text = "-", numhl = "GitSignsDeleteNr" },
-                    topdelete = { hl = "DiffDelete", text = "😈", numhl = "GitSignsDeleteNr" },
-                    changedelete = { hl = "DiffChangeDelete", text = "💩", numhl = "GitSignsChangeNr" },
-                },
-            }
+            require("gitsigns").setup {}
         end,
     },
     --TODO: how about leap
@@ -536,6 +535,7 @@ local plugins = {
                     before_source = nil, -- function to run before the session is sourced via telescope
                     after_source = nil, -- function to run after the session is sourced via telescope
                 },
+                branch_separator = "@@",
             }
             require("telescope").load_extension "persisted" -- To load the telescope extension
         end,
