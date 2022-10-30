@@ -30,6 +30,7 @@ local plugins = {
             }
             vim.keymap.set("n", "\\\\", ":Neorg workspace ")
         end,
+        run = ":Neorg sync-parsers",
         requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope", "max397574/neorg-kanban" },
     },
     {
