@@ -61,6 +61,7 @@ local servers = {
     rnix = { capabilities = capabilities },
     cmake = { capabilities = capabilities },
     solang = { capabilities = capabilities },
+    solc = { capabilities = capabilities },
 }
 local on_attach = function(client)
     local status_ok, illuminate = pcall(require, "illuminate")

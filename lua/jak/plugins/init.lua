@@ -142,16 +142,10 @@ local plugins = {
             vim.keymap.set("n", "<leader><leader>", ":Telescope help_tags<CR>")
             vim.keymap.set("n", "<leader>n", ":Telescope neoclip<CR>")
             vim.keymap.set("n", "<leader>,", ":Telescope file_browser<CR>")
-            vim.keymap.set("n", "<leader>fp", ":Telescope projects<CR>")
+            vim.keymap.set("n", "<leader>fp", ":Telescope persisted<CR>")
             vim.keymap.set("n", "<leader>fl", ":Telescope software-licenses find<CR>")
             vim.keymap.set("n", "<leader>ft", ":Telescope tldr<CR>")
             vim.keymap.set("v", "<leader>rf", "<ESC>:Telescope refactoring refactors<CR>")
-        end,
-    },
-    {
-        "ahmedkhalf/project.nvim",
-        config = function()
-            require("project_nvim").setup()
         end,
     },
     -- TODO: try this
