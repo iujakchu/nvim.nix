@@ -148,6 +148,16 @@ local plugins = {
             vim.keymap.set("v", "<leader>rf", "<ESC>:Telescope refactoring refactors<CR>")
         end,
     },
+    {
+        "krivahtoo/silicon.nvim",
+        run = "./install.sh",
+        config = function()
+            require("silicon").setup {
+                font = "FiraCode Nerd Font=16",
+                theme = "material",
+            }
+        end,
+    },
     -- TODO: try this
     {
         "pwntester/octo.nvim",
@@ -513,20 +523,30 @@ local plugins = {
         "olimorris/persisted.nvim",
         --module = "persisted", -- For lazy loading
         config = function()
+            local notify = require "notify"
             require("persisted").setup {
-                save_dir = vim.fn.expand(vim.fn.stdpath "data" .. "/sessions/"), -- directory where session files are saved
-                command = "VimLeavePre", -- the autocommand for which the session is saved
-                use_git_branch = false, -- create session files based on the branch of the git enabled repository
-                autosave = true, -- automatically save session files when exiting Neovim
+                use_git_branch = true, -- create session files based on the branch of the git enabled repository
                 autoload = true, -- automatically load the session for the cwd on Neovim startup
-                allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
-                ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
-                before_save = nil, -- function to run before the session is saved to disk
-                after_save = nil, -- function to run after the session is saved to disk
-                after_source = nil, -- function to run after the session is sourced
+                on_autoload_no_session = function()
+                    notify("wash your hands", "info", {
+                        render = "minimal",
+                        stages = "slide",
+                        timeout = 1000,
+                        fps = 60,
+                    })
+                end,
                 telescope = { -- options for the telescope extension
-                    before_source = nil, -- function to run before the session is sourced via telescope
-                    after_source = nil, -- function to run after the session is sourced via telescope
+                    after_source = function(param)
+                        vim.api.nvim_command "%bd"
+                        local path = param.dir_path
+                        if string.find(path, "/") ~= 1 then
+                            vim.api.nvim_command("cd " .. vim.fn.expand "~" .. "/" .. path)
+                            vim.api.nvim_command("tcd " .. vim.fn.expand "~" .. "/" .. path)
+                        else
+                            vim.api.nvim_command("cd " .. path)
+                            vim.api.nvim_command("tcd " .. path)
+                        end
+                    end,
                 },
                 branch_separator = "@@",
             }
