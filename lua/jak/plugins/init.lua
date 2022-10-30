@@ -530,7 +530,6 @@ local plugins = {
                 },
                 branch_separator = "@@",
             }
-            require("telescope").load_extension "persisted" -- To load the telescope extension
         end,
     },
     {
