@@ -2,6 +2,7 @@ local cmp = require "cmp"
 local luasnip = require "luasnip"
 local ls = luasnip
 luasnip.config.setup {
+    update_events = "TextChangedI",
     snip_env = {
         s = ls.s,
         sn = ls.sn,
@@ -103,8 +104,6 @@ cmp.setup {
         ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-        ["<C-Space>"] = cmp.config.disable,
-        ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
         ["<C-e>"] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
@@ -147,11 +146,11 @@ cmp.setup {
             -- vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
             vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
             vim_item.menu = ({
-                luasnip = "[Snippet]",
-                nvim_lsp = "[LSP]",
-                crates = "[crates]",
-                buffer = "[Buffer]",
-                path = "[Path]",
+                luasnip = "[🐺]",
+                nvim_lsp = "[🍃]",
+                crates = "[🥳]",
+                buffer = "[📔]",
+                path = "[🌴]",
             })[entry.source.name]
             return vim_item
         end,
@@ -172,5 +171,5 @@ cmp.setup {
         ghost_text = true,
     },
 }
-require("luasnip.loaders.from_vscode").lazy_load {}
+-- require("luasnip.loaders.from_vscode").lazy_load {}
 require("luasnip.loaders.from_lua").lazy_load { paths = vim.fn.stdpath "config" .. "/snippets" }

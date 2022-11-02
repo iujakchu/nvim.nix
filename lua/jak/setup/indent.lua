@@ -25,4 +25,5 @@ vim.g.indent_blankline_filetype_exclude = {
     "glowpreview",
     "lsp-installer",
     "translator",
+    "OverseerForm",
 }

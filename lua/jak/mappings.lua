@@ -12,10 +12,11 @@ Map.general = {
         ["<C-t>"] = { ":tabe<CR>", "open a new tab" },
         ["<leader>-"] = { ":-tabnext<CR>", "jump to previous tab" },
         ["<leader>="] = { ":+tabnext<CR>", "jump to next tab" },
-        ["<C-j>"] = { "<C-w>j", "jump to the window below" },
-        ["<C-k>"] = { "<C-w>k", "jump to the window up" },
-        ["<C-h>"] = { "<C-w>h", "jump to the left window" },
-        ["<C-l>"] = { "<C-w>l", "jump to the right window" },
+        -- :(
+        -- ["<C-j>"] = { "<C-w>j", "jump to the window below" },
+        -- ["<C-k>"] = { "<C-w>k", "jump to the window up" },
+        -- ["<C-h>"] = { "<C-w>h", "jump to the left window" },
+        -- ["<C-l>"] = { "<C-w>l", "jump to the right window" },
     },
     v = {
         ["J"] = { "5j", "fast move j in visual mode" },

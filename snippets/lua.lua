@@ -1,5 +1,5 @@
 return {
-    s("todo", t "--TODO: ", i(0)),
+    s("todo", t "--TODO: "),
     s({ trig = "if", wordTrig = true }, {
         t { "if " },
         i(1),
@@ -45,32 +45,21 @@ return {
         "fn",
         fmt(
             [[
-		function{}({})
+		local function{}({})
 			{}
 		end
 	]],
             ins_generate()
         )
     ),
-    s("str", fmt("[[\n\t{}\n]]", ins_generate())),
-    s(
-        "sdt",
-        fmt(
-            [[ls_helpers.static_docstring_test({}, {}, {})]],
-            { i(1, "snip"), c(2, { { t '{"', i(1), t '"}' }, i(1) }), c(3, { { t '{"', i(1), t '$0"}' }, i(1) }) }
-        )
-    ),
-    s("lar", fmt("${{{}}}", { i(1) })),
-    s(
-        { trig = "lar(%d)", regTrig = true, wordTrig = false },
-        fmt("${{{}:{}}}", { f(function(_, snip)
-            return snip.captures[1]
-        end, {}), i(1) })
-    ),
+    s("doc", t "-- "),
     s(
         "req",
         fmt('local {} = require("{}")', {
-            dl(2, l._1:match "%.([%w_]+)$", { 1 }),
+            -- dl(2, l._1:match "%.([%w_]+)$", { 1 }),
+            f(function(args)
+                return args[1][1]:match "%.([%w_]+)$" or args[1]
+            end, { 1 }),
             i(1),
         })
     ),

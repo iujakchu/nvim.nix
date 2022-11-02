@@ -38,20 +38,20 @@ local plugins = {
         config = function()
             require "jak.setup.statusline"
         end,
-        requires = { "kyazdani42/nvim-web-devicons", "arkav/lualine-lsp-progress" },
+        requires = { "kyazdani42/nvim-web-devicons" },
     },
+    -- WARNING:not ready to use,only use default components
     {
-        "CRAG666/code_runner.nvim",
-        requires = "nvim-lua/plenary.nvim",
+        "stevearc/overseer.nvim",
         config = function()
-            require("code_runner").setup {
-                filetype = {
-                    python = "python3 -u",
-                    typescript = "deno run",
-                    rust = "cargo run",
-                },
+            local overseer = require "overseer"
+            overseer.setup {
+                templates = { "builtin" },
             }
-            vim.keymap.set("n", "<C-R>", ":RunCode<CR>", { silent = false })
+            -- overseer.load_template "python"
+            -- overseer.load_template "xmake.xmake_run"
+
+            vim.keymap.set("n", "<F1>", ":OverseerRun<CR>")
         end,
     },
     {
@@ -74,6 +74,7 @@ local plugins = {
             "f3fora/cmp-spell",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
+            -- TODO:write own snippets using luasnip
             "rafamadriz/friendly-snippets",
         },
         config = function()
@@ -87,7 +88,6 @@ local plugins = {
         ft = "rust",
         config = function()
             require("rust-tools").setup {}
-            vim.keymap.set("n", "<leader>rr", require("rust-tools.runnables").runnables)
         end,
     },
     {
@@ -194,21 +194,7 @@ local plugins = {
     {
         "numToStr/Comment.nvim",
         config = function()
-            require("Comment").setup {
-                toggler = {
-                    line = "<leader>cc",
-                    block = "<leader>cc",
-                },
-                opleader = {
-                    line = "<leader>c",
-                    block = "<leader>c",
-                },
-                extra = {
-                    above = "<leader>cO",
-                    below = "<leader>co",
-                    eol = "<leader>cA",
-                },
-            }
+            require("Comment").setup {}
         end,
     },
     {
@@ -216,6 +202,33 @@ local plugins = {
         config = function()
             require("colorizer").setup()
         end,
+    },
+    -- TODO: enable for all filetypes
+    {
+        "folke/drop.nvim",
+        event = "VimEnter",
+        config = function()
+            require("drop").setup {
+                theme = "snow", -- can be one of rhe default themes, or a custom theme
+                max = 40, -- maximum number of drops on the screen
+                interval = 500, -- every 150ms we update the drops
+                screensaver = false, -- show after 5 minutes. Set to false, to disable
+                --TODO: use drop on startup
+                filetypes = {
+                    --[[ "alpha" ]]
+                }, -- will enable/disable automatically for the following filetypes
+            }
+        end,
+    },
+    {
+        "folke/noice.nvim",
+        config = function()
+            require("noice").setup()
+        end,
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        },
     },
     {
         "goolord/alpha-nvim",
@@ -240,12 +253,12 @@ local plugins = {
             require("gitsigns").setup {}
         end,
     },
-    --TODO: how about leap
+
+    { "kevinhwang91/nvim-bqf", ft = "qf" },
     {
         "phaazon/hop.nvim",
         config = function()
-            vim.keymap.set("n", "<leader>w", "<cmd>HopWord<CR>")
-            vim.keymap.set("n", "<leader>l", "<cmd>HopLine<CR>")
+            vim.keymap.set("n", "s", "<cmd>HopChar1<CR>")
             require("hop").setup()
         end,
     },
@@ -310,12 +323,11 @@ local plugins = {
     {
         "voldikss/vim-translator",
         config = function()
-            vim.keymap.set("", "s", ":TranslateW <CR>")
+            vim.keymap.set("", "\\s", ":TranslateW <CR>")
             require "jak.setup.translator"
         end,
     },
     { "gcmt/wildfire.vim" },
-    -- { "stevearc/dressing.nvim" },
     {
         "ziontee113/icon-picker.nvim",
         config = function()
@@ -379,9 +391,8 @@ local plugins = {
         "folke/trouble.nvim",
         requires = { "kyazdani42/nvim-web-devicons", "folke/lsp-colors.nvim" },
         config = function()
-            require("trouble").setup {}
             vim.keymap.set("n", "tt", ":TroubleToggle<CR>")
-            vim.keymap.set("n", "td", ":TodoTelescope<CR>")
+            require("trouble").setup {}
         end,
     },
     {
@@ -392,9 +403,9 @@ local plugins = {
         end,
     },
     {
-        "folke/zen-mode.nvim",
+        "stevearc/dressing.nvim",
         config = function()
-            require("zen-mode").setup {}
+            require("dressing").setup()
         end,
     },
     {
@@ -472,7 +483,7 @@ local plugins = {
             vim.keymap.set("n", "zR", require("ufo").openAllFolds)
             vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
             require("ufo").setup {
-                provider_selector = function(bufnr, filetype)
+                provider_selector = function()
                     return { "treesitter", "indent" }
                 end,
             }
@@ -501,13 +512,19 @@ local plugins = {
             }
         end,
     },
-    { "marko-cerovac/material.nvim" },
     {
-        "karb94/neoscroll.nvim",
+        "folke/tokyonight.nvim",
         config = function()
-            require("neoscroll").setup()
+            vim.cmd "colorscheme tokyonight-night"
         end,
     },
+    --WARNING:not compatiable with neovide
+    -- {
+    --     "karb94/neoscroll.nvim",
+    --     config = function()
+    --         require("neoscroll").setup()
+    --     end,
+    -- },
     {
         "iamcco/markdown-preview.nvim",
         run = "cd app && npm install",
@@ -527,6 +544,14 @@ local plugins = {
             require("persisted").setup {
                 use_git_branch = true, -- create session files based on the branch of the git enabled repository
                 autoload = true, -- automatically load the session for the cwd on Neovim startup
+                should_autosave = function()
+                    local path = vim.fn.expand "%:p"
+                    if vim.bo.filetype == "alpha" or string.find(path, "/tmp") == 1 then
+                        return false
+                    else
+                        return true
+                    end
+                end,
                 on_autoload_no_session = function()
                     notify("wash your hands", "info", {
                         render = "minimal",
@@ -536,6 +561,7 @@ local plugins = {
                     })
                 end,
                 telescope = { -- options for the telescope extension
+                    -- jump between session smoothly
                     after_source = function(param)
                         vim.api.nvim_command "%bd"
                         local path = param.dir_path

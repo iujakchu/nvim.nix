@@ -35,7 +35,7 @@ dashboard.section.header.val = logo[math.random(#logo)]
 dashboard.section.header.opts.hl = color
 
 dashboard.section.buttons.val = {
-    dashboard.button("🚫", "  😈  Nothing here", ":q<CR>"),
+    dashboard.button("💤", "  😈  Nothing here", ":q<CR>"),
 }
 
 --[[ local handle = io.popen "fortune"
