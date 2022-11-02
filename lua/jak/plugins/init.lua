@@ -7,28 +7,7 @@ local plugins = {
     {
         "nvim-neorg/neorg",
         config = function()
-            require("neorg").setup {
-                load = {
-                    ["core.defaults"] = {},
-                    ["core.norg.dirman"] = {
-                        config = {
-                            workspaces = {
-                                notes = "~/notes",
-                            },
-                        },
-                    },
-                    ["core.gtd.base"] = { config = { workspace = "notes" } },
-                    ["core.norg.concealer"] = {},
-                    ["core.norg.completion"] = { config = { engine = "nvim-cmp" } },
-                    ["core.norg.journal"] = { config = { workspace = "notes" } },
-                    ["core.norg.qol.toc"] = {},
-                    ["core.presenter"] = { config = { zen_mode = "zen-mode" } },
-                    ["core.export.markdown"] = {},
-                    ["core.export"] = {},
-                    ["external.kanban"] = {},
-                },
-            }
-            vim.keymap.set("n", "\\\\", ":Neorg workspace ")
+            require "jak.setup.neorg"
         end,
         run = ":Neorg sync-parsers",
         requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope", "max397574/neorg-kanban" },
@@ -220,16 +199,17 @@ local plugins = {
             }
         end,
     },
-    {
-        "folke/noice.nvim",
-        config = function()
-            require("noice").setup()
-        end,
-        requires = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        },
-    },
+    -- WARNING: disable noice since it's not stable at the moment
+    -- {
+    --     "folke/noice.nvim",
+    --     config = function()
+    --         require("noice").setup()
+    --     end,
+    --     requires = {
+    --         "MunifTanjim/nui.nvim",
+    --         "rcarriga/nvim-notify",
+    --     },
+    -- },
     {
         "goolord/alpha-nvim",
         config = function()
@@ -280,7 +260,7 @@ local plugins = {
         "rcarriga/nvim-notify",
         config = function()
             require("notify").setup {
-                background_colour = "#000000",
+                background_colour = "#FFC0CB",
             }
         end,
     },
@@ -323,7 +303,7 @@ local plugins = {
     {
         "voldikss/vim-translator",
         config = function()
-            vim.keymap.set("", "\\s", ":TranslateW <CR>")
+            vim.keymap.set("", "<C-S>", ":TranslateW <CR>")
             require "jak.setup.translator"
         end,
     },
@@ -509,6 +489,30 @@ local plugins = {
                 },
                 printf_statements = {},
                 print_var_statements = {},
+            }
+        end,
+    },
+    {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup {
+                {
+                    window = {
+                        backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+                        width = 120, -- width of the Zen window
+                        height = 1, -- height of the Zen window
+                        options = {
+                            signcolumn = "no", -- disable signcolumn
+                            number = false, -- disable number column
+                            relativenumber = false, -- disable relative numbers
+                            cursorline = false, -- disable cursorline
+                            foldcolumn = "0", -- disable fold column
+                        },
+                    },
+                    plugins = {
+                        gitsigns = { enabled = true }, -- disables git signs
+                    },
+                },
             }
         end,
     },

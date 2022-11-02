@@ -1,11 +1,3 @@
-local map = function(a, b)
-    vim.keymap.set("n", a, b, { silent = true })
-end
-map("1", ":Neorg gtd capture<CR>")
-map("2", ":Neorg gtd edit<CR>")
-map("3", ":Neorg gtd views<CR>")
-map("4", ":Neorg toc split<CR>")
-map("9", ":Neorg presenter start<CR>")
-map("0", ":Neorg kanban toggle<CR>")
-map("-", ":Neorg journal<CR>")
-map("=", ":Neorg inject-metadata<CR>")
+vim.bo.shiftwidth = 2
+-- vim.wo.spell = true
+-- vim.bo.spelllang = "en"
